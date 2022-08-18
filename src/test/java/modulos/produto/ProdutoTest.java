@@ -22,18 +22,15 @@ public class ProdutoTest {
         //port = 8080;
         basePath = "/lojinha-bugada";
 
-
-        // Obter o token do usuario admin
-        this.token = given()// dado que
+        this.token = given()
                 .contentType(ContentType.JSON)
                 .body(UsuarioDataFactory.criarUsuarioAdministrador())
-            .when() //quando
+            .when()
                 .post("/v2/login")
-            .then() // então
+            .then()
                 .extract()
                     .path("data.token");
     }
-
 
     @Test
     @DisplayName("Validar que o valor do produto igual a 0.00 nao e permitido.")
@@ -50,7 +47,6 @@ public class ProdutoTest {
                         .body("error", equalTo("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00"))
                               .statusCode(422);
 
-
     }
         @Test
         @DisplayName("Validar os limites proibidos do valor do produto maior que 7000,01 nao é permitido.")
@@ -66,6 +62,5 @@ public class ProdutoTest {
                         .assertThat()
                 .body("error", equalTo("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00"))
                     .statusCode(422);
-
     }
 }
